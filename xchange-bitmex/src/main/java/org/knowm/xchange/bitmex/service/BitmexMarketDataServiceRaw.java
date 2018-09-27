@@ -161,6 +161,27 @@ public class BitmexMarketDataServiceRaw extends BitmexBaseService {
     }
   }
 
+  public List<BitmexKline> getBucketedTrades(
+      String binSize,
+      Boolean partial,
+      CurrencyPair pair,
+      BitmexPrompt prompt,
+      long count,
+      Boolean reverse,
+      String startTime)
+      throws ExchangeException {
+
+    BitmexContract contract = new BitmexContract(pair, prompt);
+    String bitmexSymbol = BitmexUtils.translateBitmexContract(contract);
+
+    try {
+      return updateRateLimit(
+          bitmex.getBucketedTrades(binSize, partial, bitmexSymbol, count, reverse, startTime));
+    } catch (IOException e) {
+      throw handleError(e);
+    }
+  }
+
   protected <R> List<R> checkResult(
       BitmexSymbolsAndPromptsResult<R> bitmexSymbolsAndPromptsResult) {
 

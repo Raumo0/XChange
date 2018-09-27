@@ -97,6 +97,17 @@ public interface Bitmex {
             @QueryParam("reverse") Boolean reverse)
             throws IOException, BitmexException;
 
+  @GET
+  @Path("trade/bucketed")
+  BitmexKlineList getBucketedTrades(
+      @QueryParam("binSize") String binSize,
+      @QueryParam("partial") Boolean partial,
+      @QueryParam("symbol") String symbol,
+      @QueryParam("count") Long count,
+      @QueryParam("reverse") Boolean reverse,
+      @QueryParam("startTime") String startTime)
+      throws IOException, BitmexException;
+
     @GET
     @Path("orderBook/L2")
     BitmexPublicOrderList getDepth(
